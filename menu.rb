@@ -1,16 +1,19 @@
 require_relative './charmed_polygon.rb'
 
 def start_menu
-   puts "Please enter any positive odd number!"
+   puts "Enter any number to build your charmed polygon!"
+   puts ".... except the number 2!"
    puts
    input = gets.chomp.to_i
    puts
-    if input % 2 == 0 or input < 1
-        puts "That is not a positive odd number dude."
-        puts
-        start_menu
+    if input % 4 == 0 
+        CharmedPolygon.new.mult_four_polygon(input)
+    elsif input % 2 == 0
+        CharmedPolygon.new.mult_two_polygon(input)
+    elsif input == 2
+        puts "I told you not to enter that number!!!!!!"
     else
-        CharmedPolygon.new.create_polygon(input)
+        CharmedPolygon.new.odd_polygon(input, nil)
     end
 end
 
