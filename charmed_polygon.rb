@@ -163,7 +163,7 @@ class CharmedPolygon
         x4 = x / 4
         x2 = x / 2
 
-        ordered_arr = Array.new(x**2)
+        ordered_arr = Array.new
 
         tl = [*1..((x/2)**2)]
         br = [*(((x/2)**2)+1)..(((x/2)**2))+((x/2)**2)]
@@ -175,13 +175,97 @@ class CharmedPolygon
         tr = odd_polygon((x/2), tr)
         bl = odd_polygon((x/2), bl)
 
-        if x == 6
+        
+        left_cols = x/2/2.floor
+        
+        right_cols = x/2/2 - 1
+        
+        middle = x/2/2
 
-        else
+        i = 0
+        j = 0
+        cols = x/2
+        rows = x/2
+
+        # p left_cols
+
+        # p right_cols
+
+        # p middle
+
+
+        indices = Array.new
+
+        cols.times do |c|
+            rows.times do |b|
+                index = i * cols + j
+
+                if i == middle and j == 0
+
+                elsif j < left_cols
+                    indices << index
+                end
+
+                j += 1
+
+            end
+            i += 1
+            j = 0
+        end
+
+        indices << (cols**2)/2.floor
+        
+        indices.each do |i|
+            tl[i], bl[i] = bl[i], tl[i]
+        end
+
+        indices = []
+        i = 0
+        j = 0
+
+        if right_cols > 0
+            cols.times do |c|
+                rows.times do |b|
+                    index = i * cols + j
+
+                    if j > cols - (right_cols + 1)
+                        indices << index
+                    end
+
+                    j += 1
+
+                end
+                i += 1
+                j = 0
+            end
+        end
+
+        indices.each do |i|
+            tr[i], br[i] = br[i], tr[i]
+        end
+
+        tl = tl.each_slice(rows).to_a
+        tr = tr.each_slice(rows).to_a
+        bl = bl.each_slice(rows).to_a
+        br = br.each_slice(rows).to_a
+
+        cols.times do |a|
+
+            ordered_arr << tl[a]
+            ordered_arr << tr[a]
 
         end
 
-        puts "This number is not supported...... sorry 'bout it."
+        cols.times do |a|
+
+            ordered_arr << bl[a]
+            ordered_arr << br[a]
+
+        end
+
+        ordered_arr.flatten!
+
+        draw_square(x, ordered_arr)
 
     end
 
@@ -271,7 +355,3 @@ class CharmedPolygon
     end
 
 end
-
-# CharmedPolygon.new.odd_polygon(5, nil)
-# CharmedPolygon.new.mult_four_polygon(8)
-# CharmedPolygon.new.mult_two_polygon(6)

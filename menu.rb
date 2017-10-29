@@ -6,12 +6,12 @@ def start_menu
    puts
    input = gets.chomp.to_i
    puts
-    if input % 4 == 0 
+    if input == 2
+        puts "I told you not to enter that number!!!!!!"
+    elsif input % 4 == 0 
         CharmedPolygon.new.mult_four_polygon(input)
     elsif input % 2 == 0
         CharmedPolygon.new.mult_two_polygon(input)
-    elsif input == 2
-        puts "I told you not to enter that number!!!!!!"
     else
         CharmedPolygon.new.odd_polygon(input, nil)
     end
